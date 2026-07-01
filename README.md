@@ -138,8 +138,7 @@ GraphGuard-PFE/
 │       ├── components/           # Layout, StatCard, RiskBadge, …
 │       ├── i18n/                 # FR / EN dictionary
 │       └── api/client.ts         # typed API client
-└── docs/
-    └── RAPPORT_SCIENTIFIQUE.md   # scientific report (FR + EN)
+
 ```
 
 ---
