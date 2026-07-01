@@ -132,14 +132,13 @@ GraphGuard-PFE/
 │   │   └── main.py               # FastAPI app
 │   ├── scripts/train_model.py    # CLI trainer
 │   └── requirements.txt
-├── frontend/
-│   └── src/
-│       ├── pages/                # Dashboard, GraphExplorer, Alerts, Metrics, About
-│       ├── components/           # Layout, StatCard, RiskBadge, …
-│       ├── i18n/                 # FR / EN dictionary
-│       └── api/client.ts         # typed API client
-└── docs/
-    └── RAPPORT_SCIENTIFIQUE.md   # scientific report (FR + EN)
+└── frontend/
+    └── src/
+        ├── pages/                # Dashboard, GraphExplorer, Alerts, Metrics, About
+        ├── components/           # Layout, StatCard, RiskBadge, …
+        ├── i18n/                 # FR / EN dictionary
+        └── api/client.ts         # typed API client
+
 ```
 
 ---
