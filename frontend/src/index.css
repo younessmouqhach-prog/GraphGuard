@@ -1,0 +1,210 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root,
+.dark {
+  color-scheme: dark;
+  --ink-950: 10 11 14;
+  --ink-900: 14 16 20;
+  --ink-800: 21 23 29;
+  --ink-700: 33 36 44;
+  --ink-600: 44 48 58;
+  --slate-50: 248 250 252;
+  --slate-100: 241 245 249;
+  --slate-200: 226 232 240;
+  --slate-300: 203 213 225;
+  --slate-400: 148 163 184;
+  --slate-500: 100 116 139;
+  --slate-600: 100 116 139;
+  --slate-700: 71 85 105;
+  --line: 255 255 255;
+  --fg: 255 255 255;
+  --aurora-1: 99 102 241; /* indigo */
+  --aurora-2: 34 211 238; /* cyan   */
+  --aurora-opacity: 1;
+}
+
+.light {
+  color-scheme: light;
+  --ink-950: 244 246 249;
+  --ink-900: 255 255 255;
+  --ink-800: 241 245 249;
+  --ink-700: 226 232 240;
+  --ink-600: 203 213 225;
+  --slate-50: 15 23 42;
+  --slate-100: 15 23 42;
+  --slate-200: 30 41 59;
+  --slate-300: 51 65 85;
+  --slate-400: 71 85 105;
+  --slate-500: 82 95 115;
+  --slate-600: 100 116 139;
+  --slate-700: 148 163 184;
+  --line: 15 23 42;
+  --fg: 15 23 42;
+  --aurora-1: 99 102 241;
+  --aurora-2: 56 189 248;
+  --aurora-opacity: 0.5;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-ink-950 text-slate-300 font-sans antialiased;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Animated "aurora" background — subtle, drifting, theme-aware */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--aurora-opacity);
+  background:
+    radial-gradient(38% 38% at 18% 28%, rgb(var(--aurora-1) / 0.16), transparent 62%),
+    radial-gradient(34% 34% at 82% 22%, rgb(var(--aurora-2) / 0.12), transparent 60%),
+    radial-gradient(40% 40% at 70% 82%, rgb(var(--aurora-1) / 0.12), transparent 62%);
+  filter: blur(30px) saturate(120%);
+  animation: aurora 26s ease-in-out infinite alternate;
+}
+
+@keyframes aurora {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(2.5%, -2%, 0) scale(1.08) rotate(2deg);
+  }
+  100% {
+    transform: translate3d(-2.5%, 2.5%, 0) scale(1.04) rotate(-2deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    animation: none;
+  }
+}
+
+::selection {
+  background: rgb(99 102 241 / 0.3);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-ink-700 rounded-full;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-ink-600;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3 {
+    @apply text-slate-100;
+    letter-spacing: -0.01em;
+  }
+  /* keyboard-only focus rings (accessible, invisible to mouse users) */
+  a:focus-visible,
+  button:focus-visible,
+  select:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid rgb(99 102 241 / 0.65);
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl bg-ink-900 shadow-card;
+    border: 1px solid rgb(var(--line) / 0.08);
+    transition: border-color 0.15s ease, box-shadow 0.2s ease, transform 0.2s ease,
+      background-color 0.25s ease;
+  }
+  .card-hover:hover {
+    border-color: rgb(var(--line) / 0.16);
+    transform: translateY(-2px);
+    box-shadow: 0 16px 34px -18px rgba(0, 0, 0, 0.6);
+  }
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium
+           transition duration-150 active:scale-[0.97] disabled:opacity-50
+           disabled:cursor-not-allowed disabled:active:scale-100;
+  }
+  .btn-primary {
+    @apply btn bg-accent-600 text-white hover:bg-accent-500;
+  }
+  .btn-ghost {
+    @apply btn text-slate-300;
+    border: 1px solid rgb(var(--line) / 0.1);
+  }
+  .btn-ghost:hover {
+    background: rgb(var(--line) / 0.05);
+    color: rgb(var(--slate-100));
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-2xs font-medium;
+  }
+  .label {
+    @apply text-2xs uppercase tracking-[0.08em] text-slate-500 font-semibold;
+  }
+  .input {
+    @apply w-full rounded-lg bg-ink-800 px-3 py-2 text-sm text-slate-100
+           placeholder:text-slate-500 outline-none transition-colors;
+    border: 1px solid rgb(var(--line) / 0.1);
+  }
+  .input:focus {
+    border-color: rgb(99 102 241 / 0.7);
+    box-shadow: 0 0 0 3px rgb(99 102 241 / 0.13);
+  }
+  .ctrl-btn {
+    @apply grid h-8 w-8 place-items-center rounded-lg bg-ink-900/80 text-slate-300
+           backdrop-blur transition-colors;
+    border: 1px solid rgb(var(--line) / 0.1);
+  }
+  .ctrl-btn:hover {
+    background: rgb(var(--line) / 0.06);
+    color: rgb(var(--fg));
+  }
+}
+
+/* Light-mode contrast fixes: the pastel *-300 text colors are tuned for dark
+   backgrounds; on light tinted chips they wash out, so use darker shades. */
+.light .text-accent-300,
+.light .text-brand-300 {
+  color: rgb(67 56 202);
+}
+.light .text-rose-300 {
+  color: rgb(190 18 60);
+}
+.light .text-orange-300 {
+  color: rgb(194 65 12);
+}
+.light .text-amber-300 {
+  color: rgb(180 83 9);
+}
+.light .text-emerald-300 {
+  color: rgb(4 120 87);
+}
+.light .text-purple-300 {
+  color: rgb(126 34 206);
+}
+.light .text-accent-400 {
+  color: rgb(79 70 229);
+}

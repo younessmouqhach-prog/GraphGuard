@@ -1,0 +1,15 @@
+# GraphGuard backend dependencies
+# --------------------------------
+# Core API
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.4
+
+# Deep learning (CPU build is fine for this project)
+# On Windows:  pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch>=2.2
+
+# Optional — recommended stack from the project brief (PyTorch Geometric).
+# The pure-PyTorch model in app/models/gnn.py runs WITHOUT this; install only
+# if you want to run the PyG variant in app/models/gnn_pyg.py.
+# torch-geometric>=2.5

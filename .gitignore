@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Model outputs in dataset/ (regenerated automatically) — keep source CSVs
+dataset/model.pt
+dataset/state.json
+dataset/metrics.json
+dataset/account_scores.csv
+
+
+# Node
+node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/vite.log
+# stale compiled config (should never be committed)
+frontend/vite.config.js
+frontend/vite.config.d.ts
+frontend/*.tsbuildinfo
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+dataset/transactions.csv
+dataset/time_series_stats.csv
