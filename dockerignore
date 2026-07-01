@@ -1,0 +1,19 @@
+.git
+**/node_modules
+**/__pycache__
+**/*.pyc
+frontend/dist
+# large / regenerated files — the image rebuilds state via build_dataset
+dataset/transactions.csv
+dataset/time_series_stats.csv
+dataset/state.json
+dataset/account_scores.csv
+dataset/model.pt
+# report / slides — not needed in the web image
+rapport/
+notebooks/
+*.pptx
+*.pdf
+*.html
+build_pptx.py
+make_notebook.py

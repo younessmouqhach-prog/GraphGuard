@@ -55,7 +55,30 @@ app.add_middleware(
 app.include_router(router)
 
 
-@app.get("/")
+# --------------------------------------------------------------------------- #
+# Serve the built React frontend (single-origin production hosting).
+# In local dev this folder doesn't exist, so the API behaves exactly as before.
+# --------------------------------------------------------------------------- #
+import os
+from fastapi.responses import FileResponse
+
+_STATIC = os.path.abspath(os.environ.get(
+    "STATIC_DIR", os.path.join(os.path.dirname(__file__), "..", "..", "frontend", "dist")))
+
+
+@app.get("/", include_in_schema=False)
 def root():
+    index = os.path.join(_STATIC, "index.html")
+    if os.path.isfile(index):
+        return FileResponse(index)
     return {"app": config.APP_NAME, "version": config.APP_VERSION,
             "docs": "/docs", "api": "/api/status"}
+
+
+if os.path.isdir(_STATIC):
+    @app.get("/{full_path:path}", include_in_schema=False)
+    async def spa(full_path: str):
+        target = os.path.join(_STATIC, full_path)
+        if full_path and os.path.isfile(target):
+            return FileResponse(target)
+        return FileResponse(os.path.join(_STATIC, "index.html"))
